@@ -408,12 +408,26 @@
     requestAnimationFrame(raf);
   </script>
   
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <!-- EmailJS Integration -->
   <script>
     // Initialize EmailJS with your public key
     (function() {
-      emailjs.init("XMILW81o5nV6P1zky"); // Replace with your EmailJS public key
+      if (!window.emailjs) {
+        console.error('EmailJS library not loaded.');
+        return;
+      }
+      window.emailjs.init("XMILW81o5nV6P1zky"); // Replace with your EmailJS public key
     })();
+
+    function sendEmailWithTimeout(serviceId, templateId, params, timeoutMs) {
+      return Promise.race([
+        window.emailjs.send(serviceId, templateId, params),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Email request timed out. Please try again.')), timeoutMs),
+        ),
+      ]);
+    }
 
     // Send email function
     function sendEmail(event) {
@@ -464,12 +478,12 @@
       });
       
       // Send email using EmailJS
-      emailjs.send('service_zas0ing', 'template_nsliyj7', {
+      sendEmailWithTimeout('service_zas0ing', 'template_nsliyj7', {
         from_name: name,
         from_email: email,
         message: message,
         to_email: 'bitbulb.tech@gmail.com' // Your email where you want to receive messages
-      })
+      }, 15000)
       .then(function(response) {
         console.log('SUCCESS!', response.status, response.text);
         
@@ -502,7 +516,9 @@
         // Show specific error message
         let errorMessage = 'Oops! Something went wrong while submitting the form.';
         
-        if (error.text === 'User ID is required') {
+        if (error && error.message && error.message.includes('timed out')) {
+          errorMessage = error.message;
+        } else if (error.text === 'User ID is required') {
           errorMessage = 'EmailJS not properly initialized. Please check your Public Key.';
         } else if (error.text === 'The service ID does not exist') {
           errorMessage = 'Invalid Service ID. Please check your EmailJS Service configuration.';
@@ -537,7 +553,6 @@
   </script>
   
   <!-- EmailJS Newsletter Integration -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     // Newsletter Subscription Function using EmailJS
     function subscribeNewsletter(event) {
@@ -581,13 +596,13 @@
       errorDiv.style.display = 'none';
       
       // Send subscription notification using EmailJS
-      emailjs.send('service_zas0ing', 'template_nsliyj7', {
+      sendEmailWithTimeout('service_zas0ing', 'template_nsliyj7', {
         from_name: 'Newsletter Subscriber',
         from_email: email,
         message: `New newsletter subscription request from: ${email}\n\nPlease add this subscriber to your email list.\n\nSubscription date: ${new Date().toLocaleString()}`,
         to_email: 'bitbulb.tech@gmail.com',
         subscription_type: 'newsletter'
-      })
+      }, 15000)
       .then(function(response) {
         console.log('Newsletter subscription SUCCESS!', response.status, response.text);
         
