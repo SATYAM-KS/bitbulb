@@ -1,0 +1,21 @@
+{
+  "rewrites": [
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/works",
+      "destination": "/works.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/home",
+      "destination": "/index.html"
+    }
+  ],
+  "trailingSlash": false
+}
