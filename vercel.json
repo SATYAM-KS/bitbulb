@@ -11,10 +11,6 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
-    },
-    {
-      "source": "/home",
-      "destination": "/index.html"
     }
   ],
   "trailingSlash": false
