@@ -3,3 +3,44 @@
     background-color: #de7740;
 }
 }
+
+/* Mobile styles for brand logos animation */
+@media screen and (max-width: 767px) {
+.brands-item-block {
+    width: 100px;
+    height: 90px;
+}
+.brands-content-blur.l, .brands-content-blur.r {
+    width: 30px;
+}
+}
+
+/* Growth counters - inverted triangle only at very small screens */
+@media screen and (max-width: 479px) {
+.brands-item-block {
+    width: 80px;
+    height: 70px;
+}
+.brands-content-blur.l, .brands-content-blur.r {
+    width: 20px;
+}
+
+/* Growth counters - inverted triangle layout */
+.about-number-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px 40px !important;
+}
+.about-number-block {
+    flex: 0 0 auto !important;
+}
+.about-number-block:nth-child(3) {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+}
