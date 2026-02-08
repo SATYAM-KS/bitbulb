@@ -9,6 +9,11 @@
 .brands-item-block {
     width: 100px;
     height: 90px;
+    padding: 10px;
+}
+.brands-logo {
+    padding: 8px;
+    box-sizing: border-box;
 }
 .brands-content-blur.l, .brands-content-blur.r {
     width: 30px;
@@ -20,6 +25,11 @@
 .brands-item-block {
     width: 80px;
     height: 70px;
+    padding: 8px;
+}
+.brands-logo {
+    padding: 6px;
+    box-sizing: border-box;
 }
 .brands-content-blur.l, .brands-content-blur.r {
     width: 20px;
