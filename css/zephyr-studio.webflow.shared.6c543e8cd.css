@@ -6,6 +6,7 @@ html {
   -webkit-tap-highlight-color: transparent;
   draggable: none;
   user-drag:none;
+   pointer-events: none;
 }
 
 body {
