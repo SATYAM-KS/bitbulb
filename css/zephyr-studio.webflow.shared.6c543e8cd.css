@@ -4,6 +4,8 @@ html {
   font-family: sans-serif;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  draggable: none;
+  user-drag:none;
 }
 
 body {
